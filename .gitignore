@@ -38,3 +38,8 @@ out/
 
 ### Test results ###
 .env
+.gradle
+build
+*.idea
+out
+

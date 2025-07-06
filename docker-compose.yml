@@ -1,0 +1,16 @@
+services:
+  javaanalyzer-dev:
+    build:
+      context: ./Javaanalyzer
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    container_name: analyzer-dev
+
+  javaanalyzer-ci:
+    build:
+      context: ./Javaanalyzer
+      dockerfile: Dockerfile.ci
+    ports:
+      - "8081:8080"
+    container_name: analyzer-ci

@@ -1,16 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "javaanalyzer.fullname" . }}
+  labels:
+    {{- include "javaanalyzer.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ include "javaanalyzer.name" . }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: {{ include "javaanalyzer.name" . }}
     spec:
       containers:
         - name: javaanalyzer
@@ -18,3 +20,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: {{ include "javaanalyzer.fullname" . }}-config
+            - secretRef:
+            name: {{ include "javaanalyzer.fullname" . }}-secret

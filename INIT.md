@@ -72,28 +72,15 @@
 
 ## ✅ 9. deployment.yaml 수정 (templates/deployment.yaml)
 
-✅ 6단계: service.yaml 수정 (templates/service.yaml)
+## ✅ 10. service.yaml 수정 (templates/service.yaml)
 
-✅ 7단계: Helm으로 배포
-bash
-복사
-편집
-helm install javaanalyzer ./javaanalyzer-chart
-배포 확인:
+## ✅ 11. Helm으로 배포
+    helm install javaanalyzer ./javaanalyzer-chart
 
-bash
-복사
-편집
-kubectl get pods
-kubectl get svc
-✅ 8단계: 웹 접속 테스트
-bash
-복사
-편집
-minikube service javaanalyzer
-또는:
+### 배포 확인:
+    kubectl get pods
+    kubectl get svc
+## ✅ 12. 웹 접속 테스트
+    minikube service javaanalyzer
 
-bash
-복사
-편집
-curl $(minikube ip):30080/actuator/health
+    curl $(minikube ip):30080/actuator/health

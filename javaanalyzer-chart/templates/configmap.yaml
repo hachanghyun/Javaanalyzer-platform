@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "javaanalyzer.fullname" . }}-config
+data:
+  SPRING_PROFILES_ACTIVE: "{{ .Values.spring.profile }}"
+  CUSTOM_VALUE: "{{ .Values.customValue }}"
+
+---
+# templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "javaanalyzer.fullname" . }}-secret
+type: Opaque
+data:
+  DB_PASSWORD: {{ .Values.secrets.dbPassword | b64enc }}
+
+---
+# templates/_helpers.tpl
+  {{- define "javaanalyzer.name" -}}
+  {{ .Chart.Name }}
+  {{- end }}
+
+  {{- define "javaanalyzer.fullname" -}}
+  {{ .Release.Name }}-{{ .Chart.Name }}
+  {{- end }}
+  
+  {{- define "javaanalyzer.labels" -}}
+app.kubernetes.io/name: {{ include "javaanalyzer.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+  {{- end }}
